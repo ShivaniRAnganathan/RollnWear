@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #3f51b5;
+            --secondary: #f50057;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --light-bg: #f5f5f5;
+            --border-radius: 8px;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+        }
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0;
+            background-color: var(--primary);
+            color: white;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .nav-icon {
+            margin-right: 10px;
+        }
+        .card {
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, var(--primary) 0%, #5c6bc0 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: var(--border-radius);
+        }
+        .stats-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .stats-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .stats-label {
+            opacity: 0.8;
+        }
+        .table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        .low-stock {
+            background-color: #fff4e5 !important;
+        }
+        .logo {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .logo h4 {
+            font-weight: bold;
+            margin: 0;
+        }
+        .btn-icon {
+            margin-right: 5px;
+        }
+        #alert-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar col-md-3 col-lg-2">
+        <div class="logo">
+            <h4>IMS</h4>
+            <div class="small text-white-50">Inventory System</div>
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#dashboard" data-tab="dashboard">
+                    <i class="bi bi-speedometer2 nav-icon"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#inventory" data-tab="inventory">
+                    <i class="bi bi-box-seam nav-icon"></i> Inventory
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#orders" data-tab="orders">
+                    <i class="bi bi-cart-check nav-icon"></i> Orders
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#customers" data-tab="customers">
+                    <i class="bi bi-people nav-icon"></i> Customers
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <h1 class="mb-4">Dashboard</h1>
+            
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <i class="bi bi-box-seam stats-icon"></i>
+                        <div class="stats-value" id="total-products">0</div>
+                        <div class="stats-label">Products</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <i class="bi bi-cart-check stats-icon"></i>
+                        <div class="stats-value" id="total-orders">0</div>
+                        <div class="stats-label">Orders</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <i class="bi bi-people stats-icon"></i>
+                        <div class="stats-value" id="total-customers">0</div>
+                        <div class="stats-label">Customers</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <i class="bi bi-currency-dollar stats-icon"></i>
+                        <div class="stats-value" id="total-revenue">₹0</div>
+                        <div class="stats-label">Revenue</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Recent Orders</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="recent-orders-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer</th>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recent-orders-body">
+                                        <!-- Orders will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Low Stock Alert</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group" id="low-stock-list">
+                                <!-- Low stock items will be populated here -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Tab -->
+        <div id="inventory" class="tab-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Inventory Management</h1>
+                <div>
+                    <button class="btn btn-primary me-2" id="refresh-inventory">
+                        <i class="bi bi-arrow-clockwise btn-icon"></i> Refresh
+                    </button>
+                    <button class="btn btn-warning" id="reset-inventory">
+                        <i class="bi bi-bootstrap-reboot btn-icon"></i> Reset
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="inventory-table">
+                            <thead>
+                                <tr>
+                                    <th>Design</th>
+                                    <th>Size</th>
+                                    <th>Color</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-body">
+                                <!-- Inventory will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="orders" class="tab-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Order Management</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#new-order-modal">
+                    <i class="bi bi-plus-circle btn-icon"></i> New Order
+                </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Phone</th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-body">
+                                <!-- Orders will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customers Tab -->
+        <div id="customers" class="tab-content">
+            <h1 class="mb-4">Customer Management</h1>
+            
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="customers-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Phone</th>
+                                    <th>Orders</th>
+                                    <th>Total Spent</th>
+                                    <th>Last Order</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-body">
+                                <!-- Customers will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Order Modal -->
+    <div class="modal fade" id="new-order-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="new-order-form">
+                        <div class="mb-3">
+                            <label for="customer-name" class="form-label">Customer Name</label>
+                            <input type="text" class="form-control" id="customer-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customer-phone" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" id="customer-phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="product-select" class="form-label">Product</label>
+                            <select class="form-select" id="product-select" required>
+                                <option value="">Select a product</option>
+                                <!-- Products will be populated here -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" min="1" value="1" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="create-order-btn">Create Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alert-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // API URL
+        const API_BASE_URL = 'http://localhost:5009';
+        
+        // Store data
+        let inventory = [];
+        let orders = [];
+        let customers = [];
+        
+        // DOM elements
+        const navLinks = document.querySelectorAll('.nav-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = link.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Show tab content
+                    tabContents.forEach(tab => tab.classList.remove('active'));
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Load data
+            fetchInventory();
+            fetchOrders();
+            
+            // Event listeners
+            document.getElementById('refresh-inventory').addEventListener('click', refreshInventory);
+            document.getElementById('reset-inventory').addEventListener('click', resetInventory);
+            document.getElementById('create-order-btn').addEventListener('click', createOrder);
+        });
+        
+        // Fetch inventory
+        async function fetchInventory() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/tshirts`);
+                inventory = await response.json();
+                updateInventoryTable();
+                updateProductSelect();
+                updateDashboard();
+            } catch (error) {
+                showAlert('Failed to load inventory', 'danger');
+                console.error('Error fetching inventory:', error);
+            }
+        }
+        
+        // Fetch orders
+        async function fetchOrders() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders`);
+                orders = await response.json();
+                updateOrdersTable();
+                processCustomerData();
+                updateDashboard();
+            } catch (error) {
+                showAlert('Failed to load orders', 'danger');
+                console.error('Error fetching orders:', error);
+            }
+        }
+        
+        // Update inventory table
+        function updateInventoryTable() {
+            const tableBody = document.getElementById('inventory-body');
+            tableBody.innerHTML = '';
+            
+            inventory.forEach(item => {
+                const row = document.createElement('tr');
+                if (item.quantity <= 2) {
+                    row.classList.add('low-stock');
+                }
+                
+                row.innerHTML = `
+                    <td>${item.design_name}</td>
+                    <td>${item.size}</td>
+                    <td>${item.color}</td>
+                    <td class="${item.quantity <= 2 ? 'text-danger fw-bold' : ''}">${item.quantity}</td>
+                    <td>₹${item.price}</td>
+                    <td>
+                        ${item.quantity === 0 ? 
+                            '<span class="badge bg-danger">Out of Stock</span>' : 
+                            item.quantity <= 5 ? 
+                            '<span class="badge bg-warning text-dark">Low Stock</span>' : 
+                            '<span class="badge bg-success">In Stock</span>'
+                        }
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Update orders table
+        function updateOrdersTable() {
+            const tableBody = document.getElementById('orders-body');
+            const recentOrdersBody = document.getElementById('recent-orders-body');
+            
+            tableBody.innerHTML = '';
+            recentOrdersBody.innerHTML = '';
+            
+            orders.forEach(order => {
+                // Main orders table
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.customer_name}</td>
+                    <td>${order.customer_phone}</td>
+                    <td>${order.tshirt.design_name} - ${order.tshirt.size} (${order.tshirt.color})</td>
+                    <td>${order.quantity}</td>
+                    <td>₹${order.quantity * order.tshirt.price}</td>
+                    <td>${formatDate(order.order_date)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger delete-order" data-id="${order.id}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+                
+                // Add delete event listener
+                row.querySelector('.delete-order').addEventListener('click', () => deleteOrder(order.id));
+            });
+            
+            // Recent orders for dashboard (limit to 5)
+            const recentOrders = [...orders].sort((a, b) => 
+                new Date(b.order_date) - new Date(a.order_date)
+            ).slice(0, 5);
+            
+            recentOrders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.customer_name}</td>
+                    <td>${order.tshirt.design_name} - ${order.tshirt.size}</td>
+                    <td>${order.quantity}</td>
+                    <td>₹${order.quantity * order.tshirt.price}</td>
+                    <td>${formatDate(order.order_date)}</td>
+                `;
+                
+                recentOrdersBody.appendChild(row);
+            });
+        }
+        
+        // Process customer data from orders
+        function processCustomerData() {
+            const customerMap = new Map();
+            
+            orders.forEach(order => {
+                const customerId = `${order.customer_name}-${order.customer_phone}`;
+                
+                if (!customerMap.has(customerId)) {
+                    customerMap.set(customerId, {
+                        name: order.customer_name,
+                        phone: order.customer_phone,
+                        orders: [order],
+                        totalSpent: order.quantity * order.tshirt.price,
+                        lastOrder: new Date(order.order_date)
+                    });
+                } else {
+                    const customer = customerMap.get(customerId);
+                    customer.orders.push(order);
+                    customer.totalSpent += order.quantity * order.tshirt.price;
+                    
+                    const orderDate = new Date(order.order_date);
+                    if (orderDate > customer.lastOrder) {
+                        customer.lastOrder = orderDate;
+                    }
+                }
+            });
+            
+            customers = Array.from(customerMap.values());
+            updateCustomersTable();
+        }
+        
+        // Update customers table
+        function updateCustomersTable() {
+            const tableBody = document.getElementById('customers-body');
+            tableBody.innerHTML = '';
+            
+            customers.forEach(customer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.orders.length}</td>
+                    <td>₹${customer.totalSpent}</td>
+                    <td>${formatDate(customer.lastOrder)}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Update product select in order form
+        function updateProductSelect() {
+            const select = document.getElementById('product-select');
+            select.innerHTML = '<option value="">Select a product</option>';
+            
+            inventory.filter(item => item.quantity > 0).forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = `${item.design_name} - ${item.size} (${item.color}) - ₹${item.price} - ${item.quantity} in stock`;
+                select.appendChild(option);
+            });
+        }
+        
+        // Update dashboard
+        function updateDashboard() {
+            // Update stats
+            document.getElementById('total-products').textContent = inventory.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('total-orders').textContent = orders.length;
+            
+            const uniqueCustomers = new Set(orders.map(order => `${order.customer_name}-${order.customer_phone}`));
+            document.getElementById('total-customers').textContent = uniqueCustomers.size;
+            
+            const totalRevenue = orders.reduce((total, order) => total + (order.quantity * order.tshirt.price), 0);
+            document.getElementById('total-revenue').textContent = `₹${totalRevenue}`;
+            
+            // Update low stock list
+            const lowStockList = document.getElementById('low-stock-list');
+            lowStockList.innerHTML = '';
+            
+            const lowStockItems = inventory.filter(item => item.quantity <= 5);
+            
+            if (lowStockItems.length > 0) {
+                lowStockItems.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                    listItem.innerHTML = `
+                        <div>
+                            <strong>${item.design_name}</strong> - ${item.size} (${item.color})
+                        </div>
+                        <span class="badge bg-${item.quantity === 0 ? 'danger' : 'warning text-dark'} rounded-pill">
+                            ${item.quantity}
+                        </span>
+                    `;
+                    lowStockList.appendChild(listItem);
+                });
+            } else {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item text-center';
+                listItem.textContent = 'No low stock items';
+                lowStockList.appendChild(listItem);
+            }
+        }
+        
+        // Refresh inventory
+        async function refreshInventory() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/update-stock`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    showAlert('Inventory refreshed successfully', 'success');
+                    fetchInventory();
+                } else {
+                    throw new Error('Failed to refresh inventory');
+                }
+            } catch (error) {
+                showAlert('Failed to refresh inventory', 'danger');
+                console.error('Error refreshing inventory:', error);
+            }
+        }
+        
+        // Reset inventory
+        async function resetInventory() {
+            if (!confirm('Are you sure you want to reset the inventory to its initial state?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/reset-inventory`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    showAlert('Inventory reset successfully', 'success');
+                    fetchInventory();
+                } else {
+                    throw new Error('Failed to reset inventory');
+                }
+            } catch (error) {
+                showAlert('Failed to reset inventory', 'danger');
+                console.error('Error resetting inventory:', error);
+            }
+        }
+        
+        // Create new order
+        async function createOrder() {
+            const customerName = document.getElementById('customer-name').value;
+            const customerPhone = document.getElementById('customer-phone').value;
+            const tshirtId = parseInt(document.getElementById('product-select').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            if (!customerName || !customerPhone || !tshirtId || quantity < 1) {
+                showAlert('Please fill in all required fields', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        customer_name: customerName,
+                        customer_phone: customerPhone,
+                        tshirt_id: tshirtId,
+                        quantity: quantity
+                    })
+                });
+                
+                if (response.ok) {
+                    showAlert('Order created successfully', 'success');
+                    
+                    // Reset form
+                    document.getElementById('customer-name').value = '';
+                    document.getElementById('customer-phone').value = '';
+                    document.getElementById('product-select').value = '';
+                    document.getElementById('quantity').value = 1;
+                    
+                    // Close modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('new-order-modal'));
+                    modal.hide();
+                    
+                    // Refresh data
+                    fetchInventory();
+                    fetchOrders();
+                } else {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to create order');
+                }
+            } catch (error) {
+                showAlert(error.message, 'danger');
+                console.error('Error creating order:', error);
+            }
+        }
+        
+        // Delete order
+        async function deleteOrder(orderId) {
+            if (!confirm('Are you sure you want to delete this order?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    showAlert('Order deleted successfully', 'success');
+                    fetchInventory();
+                    fetchOrders();
+                } else {
+                    throw new Error('Failed to delete order');
+                }
+            } catch (error) {
+                showAlert('Failed to delete order', 'danger');
+                console.error('Error deleting order:', error);
+            }
+        }
+        
+        // Format date
+        function formatDate(dateString) {
+            const options = { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+        
+        // Show alert
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            
+            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            alertContainer.appendChild(alert);
+            
+            // Auto dismiss after 5 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.classList.remove('show');
+                    setTimeout(() => alertContainer.removeChild(alert), 300);
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

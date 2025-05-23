@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>T-Shirt Order Management Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>T-Shirt Order Management Test</h1>
+    
+    <div>
+        <h2>Available T-Shirts</h2>
+        <button onclick="fetchTshirts()">Get T-Shirts</button>
+        <div id="tshirts"></div>
+    </div>
+
+    <div>
+        <h2>Create Order</h2>
+        <input type="text" id="customerName" placeholder="Customer Name">
+        <input type="number" id="quantity" placeholder="Quantity">
+        <input type="number" id="tshirtId" placeholder="T-Shirt ID">
+        <button onclick="createOrder()">Create Order</button>
+    </div>
+
+    <div>
+        <h2>Orders History</h2>
+        <button onclick="fetchOrders()">Get Orders</button>
+        <div id="orders"></div>
+    </div>
+
+    <script>
+        async function fetchTshirts() {
+            try {
+                const response = await axios.get('http://localhost:5000/api/tshirts');
+                const tshirtsDiv = document.getElementById('tshirts');
+                tshirtsDiv.innerHTML = '<h3>T-Shirts:</h3>' + 
+                    response.data.map(t => `
+                        <div>
+                            Size: ${t.size}, Color: ${t.color}, 
+                            Quantity: ${t.quantity}, Price: $${t.price}
+                        </div>
+                    `).join('<br>');
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function createOrder() {
+            const customerName = document.getElementById('customerName').value;
+            const quantity = document.getElementById('quantity').value;
+            const tshirtId = document.getElementById('tshirtId').value;
+
+            try {
+                const response = await axios.post('http://localhost:5000/api/orders', {
+                    customer_name: customerName,
+                    quantity: quantity,
+                    tshirt_id: tshirtId
+                });
+                alert('Order created successfully!');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error creating order: ' + error.response?.data?.error);
+            }
+        }
+
+        async function fetchOrders() {
+            try {
+                const response = await axios.get('http://localhost:5000/api/orders');
+                const ordersDiv = document.getElementById('orders');
+                ordersDiv.innerHTML = '<h3>Orders:</h3>' + 
+                    response.data.map(order => `
+                        <div>
+                            Customer: ${order.customer_name}, 
+                            T-Shirt: ${order.tshirt.size} ${order.tshirt.color}, 
+                            Quantity: ${order.quantity}, 
+                            Status: ${order.status}, 
+                            Date: ${new Date(order.order_date).toLocaleString()}
+                        </div>
+                    `).join('<br>');
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
