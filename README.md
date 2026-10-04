@@ -76,7 +76,7 @@ You do need to click through Cloudflare once:
 4. Production branch: `main` (after this shop is merged).
 5. Framework preset: **None**.
 6. Build command: leave this **empty**. There is no build.
-7. Build output directory: `/` (the repository root, not `old/`).
+7. Leave **Root directory** blank. Build output directory: `/` (the repository root, not `old/`).
 8. Save and deploy.
 
 Name the project `rollnwear` if you want the address `https://rollnwear.pages.dev`. The first deploy is the click above. Later pushes to `main` publish on their own.
