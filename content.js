@@ -10,7 +10,7 @@
    Order message placeholders:
      {name} {design} {colour} {size} {quantity}
      {total} {city} {pincode} {source} {note}
-   {price} is the tee price from stock.json, like "Rs 899".
+   {price} is the tee price from stock.json, like "₹899".
 
    If a tee has no colour in stock.json, the line that contains
    {colour} is left out of the WhatsApp message. Keep that line
@@ -108,6 +108,7 @@ window.SITE_COPY = {
     "Other",
   ],
   eachLabel: "{price} each",
+  photoNote: "Photo shows {shown}. Yours will be {colour}.",
   totalLabel: "Total",
   submitLabel: "Send order on WhatsApp",
   sentNote: "WhatsApp should open with your order filled in. Tap send there.",

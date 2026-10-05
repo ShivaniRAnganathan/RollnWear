@@ -13,6 +13,7 @@
       "design": "Board Game Components",
       "colour": "White",
       "image": "images/board-game-components--black.webp",
+      "photoColour": "Black",
       "sizes": { "L": 2, "2XL": 3 }
     },
     {
@@ -49,12 +50,14 @@
       "design": "Power to the Meeple",
       "colour": "Yellow",
       "image": "images/power-to-the-meeple--black.webp",
+      "photoColour": "Black",
       "sizes": { "S": 2, "M": 2 }
     },
     {
       "design": "I Don't Make the Rules",
       "colour": "Blue",
       "image": "images/i-dont-make-the-rules.webp",
+      "photoColour": "Black",
       "sizes": { "S": 1, "M": 1 }
     },
     {
@@ -85,6 +88,7 @@
       "design": "Wingin' It",
       "colour": "Blue",
       "image": "images/wingin-it--black.webp",
+      "photoColour": "Black",
       "sizes": { "S": 2, "M": 2 }
     }
   ]

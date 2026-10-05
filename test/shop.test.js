@@ -63,8 +63,8 @@ lastFewExpected.forEach(function (row) {
 
 assert.deepStrictEqual(Shop.availableSizes({ sizes: { S: 0, "2XL": 2, M: 0, L: 1 } }), ["L", "2XL"]);
 assert.strictEqual(Shop.isForSale({ sizes: { M: 0 } }), false);
-assert.strictEqual(Shop.formatInr(899), "Rs 899");
-assert.strictEqual(Shop.formatInr(1798), "Rs 1,798");
+assert.strictEqual(Shop.formatInr(899), "₹899");
+assert.strictEqual(Shop.formatInr(1798), "₹1,798");
 assert.strictEqual(Shop.itemLabel(itemOf("Wingin' It", "Black")), "Wingin' It — Black");
 assert.strictEqual(Shop.itemLabel(itemOf("Less AP More VP", null)), "Less AP More VP");
 const groups = Shop.groupByDesign(stock.items);
@@ -128,7 +128,7 @@ assert.ok(!plainMessage.includes("Colour"), plainMessage);
 assert.strictEqual(plainResult.total, 899);
 assert.ok(message.includes("Size: L"));
 assert.ok(message.includes("Quantity: 2"));
-assert.ok(message.includes("Total: Rs 1,798"));
+assert.ok(message.includes("Total: ₹1,798"));
 assert.ok(message.includes("Pincode: 560001"));
 assert.ok(message.includes("Where I heard about you: Instagram post"));
 assert.ok(message.includes("pack it flat & keep the tag."));

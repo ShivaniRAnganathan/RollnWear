@@ -21,21 +21,21 @@
   </script>
   <!-- COPY: link preview. Crawlers read these tags, not content.js. -->
   <title>Roll &amp; Wear — Board-game tees</title>
-  <meta name="description" content="Original board-game tees from Roll &amp; Wear, made by gamers for gamers. Rs 899. Order on WhatsApp.">
+  <meta name="description" content="Original board-game tees from Roll &amp; Wear, made by gamers for gamers. ₹899. Order on WhatsApp.">
   <link rel="canonical" href="https://rollnwear.pages.dev/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Roll &amp; Wear">
   <meta property="og:locale" content="en_IN">
   <meta property="og:url" content="https://rollnwear.pages.dev/">
   <meta property="og:title" content="Roll &amp; Wear — Board-game tees">
-  <meta property="og:description" content="Original board-game tees, made by gamers for gamers. Rs 899. Order on WhatsApp.">
+  <meta property="og:description" content="Original board-game tees, made by gamers for gamers. ₹899. Order on WhatsApp.">
   <meta property="og:image" content="https://rollnwear.pages.dev/images/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Roll and Wear board-game tee">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Roll &amp; Wear — Board-game tees">
-  <meta name="twitter:description" content="Original board-game tees, made by gamers for gamers. Rs 899. Order on WhatsApp.">
+  <meta name="twitter:description" content="Original board-game tees, made by gamers for gamers. ₹899. Order on WhatsApp.">
   <meta name="twitter:image" content="https://rollnwear.pages.dev/images/og.jpg">
   <link rel="icon" href="images/logo-circle.png" type="image/png">
   <link rel="apple-touch-icon" href="images/logo-circle.png">
@@ -148,7 +148,7 @@
             <p class="each-price" id="each-price"></p>
             <div class="total-bar">
               <span id="total-label">Total</span>
-              <strong id="order-total">Rs —</strong>
+              <strong id="order-total">₹—</strong>
             </div>
             <button class="btn" type="submit" id="submit-label">Send order on WhatsApp</button>
             <p class="sent-note" id="sent-note" hidden></p>
@@ -174,7 +174,10 @@
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <button class="modal-close" id="modal-close" type="button">Close</button>
       <div class="modal-layout">
-        <div class="modal-photo" id="modal-photo"></div>
+        <div class="modal-visual">
+          <div class="modal-photo" id="modal-photo"></div>
+          <p class="photo-note" id="modal-photo-note" hidden></p>
+        </div>
         <div class="modal-body">
           <h2 id="modal-title"></h2>
           <p class="modal-price" id="modal-price"></p>
@@ -222,7 +225,7 @@
             <p class="each-price" id="modal-each"></p>
             <div class="total-bar">
               <span id="modal-total-label">Total</span>
-              <strong id="modal-total">Rs —</strong>
+              <strong id="modal-total">₹—</strong>
             </div>
             <button class="btn" type="submit" id="modal-submit">Order on WhatsApp</button>
             <p class="sent-note" id="modal-sent" hidden></p>

@@ -56,9 +56,9 @@
 
   function formatInr(amount) {
     var n = Math.round(Number(amount));
-    if (!Number.isFinite(n)) return "Rs —";
+    if (!Number.isFinite(n)) return "₹—";
     var body = String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return (n < 0 ? "-Rs " : "Rs ") + body;
+    return (n < 0 ? "-₹" : "₹") + body;
   }
 
   function parseQuantity(value) {

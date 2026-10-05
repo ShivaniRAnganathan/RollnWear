@@ -305,6 +305,18 @@ h1 {
   text-transform: uppercase;
 }
 
+.photo-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.modal-visual .photo-note {
+  margin: 0;
+  padding: 12px 20px 0;
+}
+
 .card-name {
   margin: 14px 0 0;
   font-family: var(--sans);
@@ -605,10 +617,23 @@ textarea { min-height: 96px; resize: vertical; }
   .modal-layout {
     display: contents;
   }
-  .modal-photo {
-    height: 100%;
+  .modal-visual {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     max-height: calc(100vh - 56px);
+  }
+  .modal-photo {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
     aspect-ratio: auto;
+  }
+  .modal-visual .photo-note {
+    margin: 0;
+    padding: 12px 16px 14px;
+    background: var(--paper);
   }
   .modal-body {
     overflow: auto;

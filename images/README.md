@@ -6,7 +6,7 @@ Photos are 4:5, cropped to the chest print, and saved as WebP under 150KB. They 
 
 | Design | Colour on the swatch | File | Pictured shirt | Hextasy page |
 |---|---|---|---|---|
-| The Boardgamer | (not set) | `images/the-boardgamer.webp` | flat graphic | https://hextasy.in/product/the-board-gamer-2 |
+| The Boardgamer | (not set) | `images/the-boardgamer.webp` | front tee only, on black | https://hextasy.in/product/the-board-gamer-2 |
 | Board Game Components | Black | `images/board-game-components--black.webp` | black | https://hextasy.in/product/game-components-2 |
 | Board Game Components | White | `images/board-game-components--black.webp` | black (no white photo) | https://hextasy.in/product/game-components-2 |
 | Power to the Meeple | Black | `images/power-to-the-meeple--black.webp` | black | https://hextasy.in/product/power-to-the-meeple-2 |

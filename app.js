@@ -40,6 +40,22 @@
     return stockData ? Shop.formatInr(stockData.priceInr) : "";
   }
 
+  function photoCaption(item) {
+    if (!item || !item.colour || !item.photoColour) return "";
+    if (String(item.photoColour).toLowerCase() === String(item.colour).toLowerCase()) return "";
+    return Shop.fillTemplate(copy.photoNote || "Photo shows {shown}. Yours will be {colour}.", {
+      shown: String(item.photoColour).toLowerCase(),
+      colour: item.colour,
+    });
+  }
+
+  function setPhotoNote(el, item) {
+    if (!el) return;
+    var note = photoCaption(item);
+    el.hidden = !note;
+    el.textContent = note;
+  }
+
   function findGroup(index) {
     for (var i = 0; i < groups.length; i++) {
       for (var j = 0; j < groups[i].variants.length; j++) {
@@ -275,7 +291,7 @@
 
   function updateTotals() {
     var parsed = Shop.parseQuantity(state.quantity || $("quantity").value);
-    var shown = "Rs —";
+    var shown = "₹—";
     if (parsed.value >= 1 && parsed.value <= Shop.MAX_QTY && stockData) {
       shown = Shop.formatInr(parsed.value * stockData.priceInr);
     }
@@ -319,6 +335,7 @@
     if (Shop.isLastFew(item, stockData.lastFewAt) && !photo.querySelector(".last-few")) {
       photo.appendChild(badge());
     }
+    setPhotoNote($("modal-photo-note"), item);
     text("modal-title", item.design);
     text("modal-price", priceText());
     var blurb = copy.blurbs && copy.blurbs[item.design];
@@ -343,6 +360,7 @@
       var photo = open.querySelector(".photo");
       var next = photoBlock(item);
       photo.replaceWith(next);
+      setPhotoNote(card.querySelector(".photo-note"), item);
       card.querySelector(".size-line").textContent =
         (copy.sizesLabel || "Sizes") + "  " + Shop.availableSizes(item).join("   ");
       renderSwatches(card.querySelector(".swatches"), group, index, function (nextIndex) {
@@ -377,6 +395,10 @@
       open.type = "button";
       open.className = "card-open";
       open.appendChild(photoBlock(item));
+      var note = document.createElement("p");
+      note.className = "photo-note";
+      note.hidden = true;
+      open.appendChild(note);
       var name = document.createElement("h3");
       name.className = "card-name";
       name.textContent = group.design;
