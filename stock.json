@@ -1,0 +1,91 @@
+{
+  "note": "Change the numbers under sizes to update the shop. A size set to 0 is hidden. Customers never see these numbers. Last few appears when the sizes for one design and colour add up to lastFewAt or less. priceInr is the price of every tee, in rupees. image is a photo path, or null for a name card. Keep this file valid JSON.",
+  "priceInr": 899,
+  "lastFewAt": 3,
+  "items": [
+    {
+      "design": "The Boardgamer",
+      "colour": null,
+      "image": null,
+      "sizes": { "L": 2 }
+    },
+    {
+      "design": "Board Game Components",
+      "colour": "White",
+      "image": null,
+      "sizes": { "L": 2, "2XL": 3 }
+    },
+    {
+      "design": "Power to the Meeple",
+      "colour": null,
+      "image": "images/power-to-the-meeple.jpg",
+      "sizes": { "L": 1, "2XL": 2 }
+    },
+    {
+      "design": "Wingin' It",
+      "colour": null,
+      "image": "images/wingin-it.jpg",
+      "sizes": { "L": 4, "XL": 3, "2XL": 3 }
+    },
+    {
+      "design": "Board Game Components",
+      "colour": "Black",
+      "image": "images/board-game-components--black.jpg",
+      "sizes": { "S": 4, "M": 3 }
+    },
+    {
+      "design": "Game Night",
+      "colour": null,
+      "image": "images/game-night.jpg",
+      "sizes": { "XL": 2, "2XL": 5 }
+    },
+    {
+      "design": "Before You Ask",
+      "colour": "Blue",
+      "image": "images/before-you-ask--blue.jpg",
+      "sizes": { "S": 4, "M": 4, "XL": 2 }
+    },
+    {
+      "design": "Power to the Meeple",
+      "colour": "Yellow",
+      "image": null,
+      "sizes": { "S": 2, "M": 2 }
+    },
+    {
+      "design": "I Don't Make the Rules",
+      "colour": "Blue",
+      "image": null,
+      "sizes": { "S": 1, "M": 1 }
+    },
+    {
+      "design": "Less AP More VP",
+      "colour": null,
+      "image": "images/less-ap-more-vp.jpg",
+      "sizes": { "S": 2, "M": 2, "XL": 2 }
+    },
+    {
+      "design": "White Meeple",
+      "colour": null,
+      "image": null,
+      "sizes": { "S": 1, "M": 1, "XL": 1 }
+    },
+    {
+      "design": "Orange Meeple",
+      "colour": "Navy blue",
+      "image": null,
+      "sizes": { "S": 1, "M": 1, "XL": 1 }
+    },
+    {
+      "design": "Meeple Friends",
+      "colour": null,
+      "image": "images/meeple-friends.jpg",
+      "sizes": { "S": 1, "M": 1, "XL": 1 }
+    },
+    {
+      "design": "Wingin' It",
+      "colour": "Blue",
+      "image": null,
+      "sizes": { "S": 2, "M": 2 }
+    }
+  ]
+}
