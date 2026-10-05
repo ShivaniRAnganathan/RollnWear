@@ -1,20 +1,22 @@
 /* ============================================================
    ROLL & WEAR — EDITABLE COPY
    ------------------------------------------------------------
-   This is the file to edit for words on the page, the WhatsApp
-   order message, and the footer.
-
-   Change the text inside the quotes. Keep the quotes, the
-   commas, and any {placeholder} words.
+   Edit the words inside the quotes. Keep the quotes, commas,
+   and any {placeholder} words.
 
    Link-preview title, description, and image (Instagram and
-   WhatsApp) live in index.html. They are marked COPY: link preview.
+   WhatsApp) live in index.html, marked COPY: link preview.
 
-   Placeholders the order form fills in:
+   Order message placeholders:
      {name} {design} {colour} {size} {quantity}
      {total} {city} {pincode} {source} {note}
    {price} is the tee price from stock.json, like "Rs 899".
-   Do not type a backtick character (`). It would break this file.
+
+   If a tee has no colour in stock.json, the line that contains
+   {colour} is left out of the WhatsApp message. Keep that line
+   written as: Colour: {colour}
+
+   Do not type a backtick (`). It would break this file.
    ============================================================ */
 window.SITE_COPY = {
   /* SETTINGS */
@@ -23,45 +25,62 @@ window.SITE_COPY = {
   instagramHandle: "@rollnwear",
 
   /* HERO */
-  heroKicker: "Roll the dice. Wear the joke.",
+  heroKicker: "Board-game tees",
   heroHeadline: "Original board-game tees, made by gamers, for gamers.",
-  heroSub: "A small Indian label of original tees for people who stay for one more round. Pick a design, pick a size we have, and send the order on WhatsApp.",
+  heroSub: "A small Indian label. One price for every design and every size. Choose what we have in stock, then send the order on WhatsApp.",
   instagramCta: "Instagram @rollnwear",
 
   /* ABOUT */
-  aboutKicker: "House rules",
-  aboutHeading: "From our game night to yours",
-  aboutBody: "Roll & Wear started at the table: meeples, house rules, and shirts we actually wanted to wear home. Every design is original, made by gamers, for gamers.",
-  aboutLinkLabel: "See new drops on Instagram @rollnwear",
+  aboutHeading: "Made at the table",
+  aboutBody: "Roll & Wear prints original tees for people who stay for one more round. The designs are ours, drawn for game night rather than licensed from anyone else.",
 
-  /* PRODUCT SECTION */
+  /* HOW TO ORDER */
+  howHeading: "How to order",
+  howSteps: [
+    {
+      title: "Pick a design and size",
+      body: "Choose the colour, if there is one, and a size we still have.",
+    },
+    {
+      title: "Send the order on WhatsApp",
+      body: "The message is written out for you. You tap send.",
+    },
+    {
+      title: "We confirm and share payment",
+      body: "We confirm the stock and send payment details.",
+    },
+  ],
+
+  /* CATALOGUE */
   teesHeading: "The tees",
   teesIntro: "{price} for every design and every size.",
   lastFewLabel: "Last few",
   sizesLabel: "Sizes",
-  orderThisLabel: "Order this",
-  photoComing: "",
-  catalogError: "The shelf didn't load. Refresh the page and try again.",
-  catalogEmpty: "Nothing is in stock right now. Chat with us on WhatsApp and ask what's on the table.",
+  colourLabel: "Colour",
+  photoSoon: "Photo coming soon",
+  viewLabel: "View",
+  catalogError: "The tees didn't load. Refresh the page and try again.",
+  catalogEmpty: "Nothing is in stock right now. Message us on WhatsApp and ask what is on the table.",
 
   /* BLURBS — one per design name. Clear the words to hide a blurb. */
   blurbs: {
-    "The Boardgamer": "For the person who brought the game, taught the game, and still won.",
-    "Board Game Components": "Tokens, tiles, and the little bits that make a box feel full.",
-    "Power to the Meeple": "A small wooden person. A large set of opinions.",
-    "Wingin' It": "Wings out. Plan optional.",
-    "Game Night": "The shirt you put on once the table is clear.",
-    "Before You Ask": "The answer is on the shirt. Setup can wait.",
-    "I Don't Make the Rules": "You just play by them. Mostly.",
-    "Less AP More VP": "Fewer speeches. More points.",
-    "White Meeple": "Quiet piece. Serious plans.",
-    "Orange Meeple": "The bright one that still takes the long road.",
-    "Meeple Friends": "They came for the snacks and stayed for the scoring.",
+    "The Boardgamer": "For the person who brings the game and teaches the table.",
+    "Board Game Components": "Tokens, tiles, and the pieces that fill a box.",
+    "Power to the Meeple": "A small wooden figure, drawn large.",
+    "Wingin' It": "A quiet wingspan, worn simply.",
+    "Game Night": "Script for the night the table stays out.",
+    "Before You Ask": "The answers, printed down the front.",
+    "I Don't Make the Rules": "A straight line, and the rulebook nearby.",
+    "Less AP More VP": "Less talk. More points.",
+    "White Meeple": "One quiet piece.",
+    "Orange Meeple": "The bright piece.",
+    "Meeple Friends": "Three meeples, side by side.",
   },
 
-  /* ORDER FORM */
-  orderHeading: "Place an order",
-  orderIntro: "Tell us what you want. WhatsApp opens with the order written out, and you tap send.",
+  /* ORDER */
+  orderHeading: "Order",
+  orderIntro: "Use this form, or open a tee above. Either way, WhatsApp opens with the order written out.",
+  modalSubmit: "Order on WhatsApp",
   labels: {
     name: "Name",
     design: "Design and colour",
@@ -79,7 +98,7 @@ window.SITE_COPY = {
     pincode: "6-digit pincode",
     note: "Anything we should know?",
     source: "Choose one",
-    sizeHint: "Choose a design to see sizes.",
+    sizeHint: "Choose a tee to see sizes.",
   },
   hearAboutOptions: [
     "Instagram post",
@@ -91,9 +110,9 @@ window.SITE_COPY = {
   eachLabel: "{price} each",
   totalLabel: "Total",
   submitLabel: "Send order on WhatsApp",
-  sentNote: "WhatsApp should open with your order filled in. Tap send there and it reaches us.",
+  sentNote: "WhatsApp should open with your order filled in. Tap send there.",
   fallbackLabel: "Open WhatsApp with this order",
-  orderingNote: "Ordering {label}.",
+  closeLabel: "Close",
   errors: {
     name: "Add the name for this order.",
     design: "Choose a design.",
@@ -110,7 +129,7 @@ window.SITE_COPY = {
     form: "Check the highlighted fields.",
   },
 
-  /* WHATSAPP ORDER MESSAGE — keep the {placeholders} */
+  /* WHATSAPP ORDER MESSAGE — keep {colour} on its own line */
   whatsappTemplate: `Hi Roll & Wear! I'd like to order a tee.
 
 Design: {design}
@@ -125,10 +144,9 @@ Pincode: {pincode}
 Where I heard about you: {source}
 Note: {note}`,
 
-  /* Short hello for the floating chat button. */
   chatPrefill: "Hi Roll & Wear! I have a question about the tees.",
 
   /* FOOTER */
   footer: "Roll & Wear, India. Original board-game tees.",
-  chatLabel: "Chat on WhatsApp",
+  chatLabel: "WhatsApp",
 };

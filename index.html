@@ -4,8 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no">
-  <meta name="theme-color" content="#3F3073">
-  <!-- Relative links work at the domain root and in a subfolder. -->
+  <meta name="theme-color" content="#0C1013">
   <script>
     (function () {
       var path = location.pathname;
@@ -33,7 +32,7 @@
   <meta property="og:image" content="https://rollnwear.pages.dev/images/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Roll &amp; Wear board-game tee">
+  <meta property="og:image:alt" content="Roll and Wear board-game tee">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Roll &amp; Wear — Board-game tees">
   <meta name="twitter:description" content="Original board-game tees, made by gamers for gamers. Rs 899. Order on WhatsApp.">
@@ -57,7 +56,7 @@
   <a class="skip" href="#tees">Skip to the tees</a>
   <header class="site-header">
     <a class="brand" href="#top">
-      <img src="images/logo-circle.png" width="48" height="48" alt="Roll &amp; Wear">
+      <img src="images/logo-circle.png" width="42" height="42" alt="Roll &amp; Wear">
     </a>
     <nav>
       <a href="#tees">Tees</a>
@@ -65,62 +64,40 @@
     </nav>
   </header>
   <main>
-    <section class="hero" aria-labelledby="hero-headline">
-      <div class="wrap hero-inner">
-        <p class="kicker">
-          <svg class="kicker-die" viewBox="0 0 64 64" aria-hidden="true">
-            <rect x="4" y="4" width="56" height="56" rx="14" fill="#E5C05E"></rect>
-            <circle cx="20" cy="20" r="5" fill="#3F3073"></circle>
-            <circle cx="44" cy="20" r="5" fill="#3F3073"></circle>
-            <circle cx="32" cy="32" r="5" fill="#3F3073"></circle>
-            <circle cx="20" cy="44" r="5" fill="#3F3073"></circle>
-            <circle cx="44" cy="44" r="5" fill="#3F3073"></circle>
-          </svg>
-          <span id="hero-kicker"></span>
-        </p>
+    <section class="hero">
+      <div class="wrap">
+        <p class="kicker" id="hero-kicker"></p>
         <h1 id="hero-headline"></h1>
         <p class="lede" id="hero-sub"></p>
-        <a class="pill" id="hero-ig" href="https://www.instagram.com/rollnwear/">Instagram @rollnwear</a>
+        <a class="text-link" id="hero-ig" href="https://www.instagram.com/rollnwear/">Instagram @rollnwear</a>
       </div>
-      <svg class="deco deco-die" viewBox="0 0 64 64" aria-hidden="true">
-        <rect x="4" y="4" width="56" height="56" rx="14" fill="currentColor"></rect>
-        <circle cx="22" cy="22" r="5" fill="#3F3073"></circle>
-        <circle cx="42" cy="42" r="5" fill="#3F3073"></circle>
-      </svg>
-      <svg class="deco deco-meeple" viewBox="0 0 64 86" aria-hidden="true">
-        <path fill="currentColor" d="M32 3c7.2 0 13 5.6 13 12.8 0 4.1-1.9 7.2-4.4 9.8 8.8 3.7 14.9 12.2 14.9 22.2v23.4c0 2.2-1.9 3.9-4.1 3.4l-8.2-2.4-3.2 8.2c-.6 1.5-2.1 2.6-3.8 2.6H27.8c-1.7 0-3.2-1.1-3.8-2.6l-3.2-8.2-8.2 2.4c-2.2.5-4.1-1.2-4.1-3.4V47.8c0-10 6.1-18.5 14.9-22.2-2.5-2.6-4.4-5.7-4.4-9.8C19 8.6 24.8 3 32 3z"></path>
-      </svg>
     </section>
-
     <section class="about">
       <div class="wrap">
-        <article class="about-card">
-          <p class="about-kicker" id="about-kicker"></p>
-          <h2 id="about-heading"></h2>
-          <p id="about-body"></p>
-          <a id="about-link" href="https://www.instagram.com/rollnwear/">Instagram @rollnwear</a>
-        </article>
+        <h2 id="about-heading"></h2>
+        <p id="about-body"></p>
       </div>
     </section>
-
+    <section class="how" id="how">
+      <div class="wrap">
+        <h2 id="how-heading"></h2>
+        <ol class="steps" id="how-steps"></ol>
+      </div>
+    </section>
     <section class="tees" id="tees">
       <div class="wrap">
-        <div class="section-head">
-          <h2 id="tees-heading"></h2>
-          <p id="tees-intro"></p>
-        </div>
+        <h2 id="tees-heading"></h2>
+        <p class="section-intro" id="tees-intro"></p>
         <div class="catalog" id="catalog">
-          <p class="catalog-message" id="catalog-loading">Loading the tees…</p>
+          <p class="catalog-message">Loading the tees…</p>
         </div>
       </div>
     </section>
-
     <section class="order" id="order">
       <div class="wrap">
-        <div class="order-card">
+        <div class="order-panel">
           <h2 id="order-heading"></h2>
           <p id="order-intro"></p>
-          <p class="ordering-note" id="ordering-note" hidden></p>
           <form id="order-form" novalidate>
             <div id="form-alert" class="form-alert" role="alert" hidden></div>
             <div class="field">
@@ -136,9 +113,9 @@
               <p class="field-error" id="error-design" hidden></p>
             </div>
             <div class="field">
-              <label id="label-size">Size</label>
+              <p class="size-label" id="label-size">Size</p>
               <div id="size-group" class="size-group" role="radiogroup" aria-labelledby="label-size" tabindex="-1"></div>
-              <p class="size-hint" id="size-hint">Choose a design to see sizes.</p>
+              <p class="size-hint" id="size-hint">Choose a tee to see sizes.</p>
               <p class="field-error" id="error-size" hidden></p>
             </div>
             <div class="field">
@@ -173,7 +150,7 @@
               <span id="total-label">Total</span>
               <strong id="order-total">Rs —</strong>
             </div>
-            <button class="submit" type="submit"><span id="submit-label">Send order on WhatsApp</span></button>
+            <button class="btn" type="submit" id="submit-label">Send order on WhatsApp</button>
             <p class="sent-note" id="sent-note" hidden></p>
             <a class="fallback" id="wa-fallback" hidden rel="noopener noreferrer" target="_blank">Open WhatsApp with this order</a>
           </form>
@@ -188,11 +165,73 @@
     </div>
   </footer>
   <a class="wa-float" id="chat-link" href="https://wa.me/918500000811" rel="noopener noreferrer" target="_blank">
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
       <path fill="currentColor" d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.74.46 3.44 1.34 4.94L2 22l5.39-1.4a10 10 0 0 0 4.65 1.18h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2zm5.76 13.88c-.24.68-1.4 1.3-1.94 1.38-.5.07-1.12.1-1.81-.11-.41-.13-.95-.31-1.64-.61-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.16-1.54-1.16-2.94s.73-2.08 1-2.37c.24-.28.64-.41 1.02-.41.12 0 .23 0 .33.01.3.01.44.03.64.49.24.57.82 1.97.89 2.11.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.13-.28.28-.12.54.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.26.13.42.11.57-.07.16-.19.66-.77.84-1.03.18-.26.35-.22.59-.13.24.08 1.53.72 1.79.85.26.13.44.2.5.31.07.11.07.64-.17 1.32z"/>
     </svg>
-    <span id="chat-label">Chat on WhatsApp</span>
+    <span id="chat-label">WhatsApp</span>
   </a>
+  <div class="modal" id="modal" hidden>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" id="modal-close" type="button">Close</button>
+      <div class="modal-layout">
+        <div class="modal-photo" id="modal-photo"></div>
+        <div class="modal-body">
+          <h2 id="modal-title"></h2>
+          <p class="modal-price" id="modal-price"></p>
+          <p class="modal-blurb" id="modal-blurb" hidden></p>
+          <div class="swatches" id="modal-swatches"></div>
+          <form id="modal-form" novalidate>
+            <div id="modal-alert" class="form-alert" role="alert" hidden></div>
+            <div class="field">
+              <p class="size-label" id="modal-size-label">Size</p>
+              <div id="modal-size-group" class="size-group" role="radiogroup" aria-labelledby="modal-size-label" tabindex="-1"></div>
+              <p class="field-error" id="modal-error-size" hidden></p>
+            </div>
+            <div class="field">
+              <label id="modal-label-quantity" for="modal-quantity">Quantity</label>
+              <input id="modal-quantity" type="number" inputmode="numeric" min="1" max="10" step="1" value="1">
+              <p class="field-error" id="modal-error-quantity" hidden></p>
+            </div>
+            <div class="field">
+              <label id="modal-label-name" for="modal-name">Name</label>
+              <input id="modal-name" autocomplete="name">
+              <p class="field-error" id="modal-error-name" hidden></p>
+            </div>
+            <div class="field">
+              <label id="modal-label-city" for="modal-city">City</label>
+              <input id="modal-city" autocomplete="address-level2">
+              <p class="field-error" id="modal-error-city" hidden></p>
+            </div>
+            <div class="field">
+              <label id="modal-label-pincode" for="modal-pincode">Pincode</label>
+              <input id="modal-pincode" inputmode="numeric" autocomplete="postal-code" maxlength="6">
+              <p class="field-error" id="modal-error-pincode" hidden></p>
+            </div>
+            <div class="field">
+              <label id="modal-label-source" for="modal-source">Where did you hear about us?</label>
+              <select id="modal-source">
+                <option value="">Choose one</option>
+              </select>
+              <p class="field-error" id="modal-error-source" hidden></p>
+            </div>
+            <div class="field">
+              <label id="modal-label-note" for="modal-note">Note (optional)</label>
+              <textarea id="modal-note"></textarea>
+              <p class="field-error" id="modal-error-note" hidden></p>
+            </div>
+            <p class="each-price" id="modal-each"></p>
+            <div class="total-bar">
+              <span id="modal-total-label">Total</span>
+              <strong id="modal-total">Rs —</strong>
+            </div>
+            <button class="btn" type="submit" id="modal-submit">Order on WhatsApp</button>
+            <p class="sent-note" id="modal-sent" hidden></p>
+            <a class="fallback" id="modal-fallback" hidden rel="noopener noreferrer" target="_blank">Open WhatsApp with this order</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <noscript>
     <p class="catalog-message wrap">This shop needs JavaScript to show the tees and to open WhatsApp.</p>
   </noscript>

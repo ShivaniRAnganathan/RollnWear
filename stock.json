@@ -1,5 +1,5 @@
 {
-  "note": "Change the numbers under sizes to update the shop. A size set to 0 is hidden. Customers never see these numbers. Last few appears when the sizes for one design and colour add up to lastFewAt or less. priceInr is the price of every tee, in rupees. image is a photo path, or null for a name card. Keep this file valid JSON.",
+  "note": "Change the numbers under sizes to update the shop. A size set to 0 is hidden. Customers never see these numbers. Last few appears when the sizes for one design and colour add up to lastFewAt or less. priceInr is the price of every tee, in rupees. image is a photo path, or null for a Photo coming soon card. colour null means the colour is not confirmed: the WhatsApp message leaves that line out. Keep this file valid JSON. Variants of the same design share one card. A colour that has a photo is shown first.",
   "priceInr": 899,
   "lastFewAt": 3,
   "items": [
@@ -17,32 +17,32 @@
     },
     {
       "design": "Power to the Meeple",
-      "colour": null,
-      "image": "images/power-to-the-meeple.jpg",
+      "colour": "Black",
+      "image": "images/power-to-the-meeple--black.webp",
       "sizes": { "L": 1, "2XL": 2 }
     },
     {
       "design": "Wingin' It",
-      "colour": null,
-      "image": "images/wingin-it.jpg",
+      "colour": "Black",
+      "image": "images/wingin-it--black.webp",
       "sizes": { "L": 4, "XL": 3, "2XL": 3 }
     },
     {
       "design": "Board Game Components",
       "colour": "Black",
-      "image": "images/board-game-components--black.jpg",
+      "image": "images/board-game-components--black.webp",
       "sizes": { "S": 4, "M": 3 }
     },
     {
       "design": "Game Night",
-      "colour": null,
-      "image": "images/game-night.jpg",
+      "colour": "Black",
+      "image": "images/game-night--black.webp",
       "sizes": { "XL": 2, "2XL": 5 }
     },
     {
       "design": "Before You Ask",
       "colour": "Blue",
-      "image": "images/before-you-ask--blue.jpg",
+      "image": "images/before-you-ask--blue.webp",
       "sizes": { "S": 4, "M": 4, "XL": 2 }
     },
     {
@@ -60,7 +60,7 @@
     {
       "design": "Less AP More VP",
       "colour": null,
-      "image": "images/less-ap-more-vp.jpg",
+      "image": "images/less-ap-more-vp.webp",
       "sizes": { "S": 2, "M": 2, "XL": 2 }
     },
     {
@@ -78,7 +78,7 @@
     {
       "design": "Meeple Friends",
       "colour": null,
-      "image": "images/meeple-friends.jpg",
+      "image": "images/meeple-friends.webp",
       "sizes": { "S": 1, "M": 1, "XL": 1 }
     },
     {

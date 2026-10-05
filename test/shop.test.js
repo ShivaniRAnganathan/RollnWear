@@ -22,10 +22,10 @@ function itemOf(design, colour) {
 const lastFewExpected = [
   ["The Boardgamer", null, true],
   ["Board Game Components", "White", false],
-  ["Power to the Meeple", null, true],
-  ["Wingin' It", null, false],
+  ["Power to the Meeple", "Black", true],
+  ["Wingin' It", "Black", false],
   ["Board Game Components", "Black", false],
-  ["Game Night", null, false],
+  ["Game Night", "Black", false],
   ["Before You Ask", "Blue", false],
   ["Power to the Meeple", "Yellow", false],
   ["I Don't Make the Rules", "Blue", true],
@@ -65,10 +65,20 @@ assert.deepStrictEqual(Shop.availableSizes({ sizes: { S: 0, "2XL": 2, M: 0, L: 1
 assert.strictEqual(Shop.isForSale({ sizes: { M: 0 } }), false);
 assert.strictEqual(Shop.formatInr(899), "Rs 899");
 assert.strictEqual(Shop.formatInr(1798), "Rs 1,798");
-assert.strictEqual(Shop.itemLabel(itemOf("Wingin' It", null)), "Wingin' It");
+assert.strictEqual(Shop.itemLabel(itemOf("Wingin' It", "Black")), "Wingin' It — Black");
+assert.strictEqual(Shop.itemLabel(itemOf("Less AP More VP", null)), "Less AP More VP");
+const groups = Shop.groupByDesign(stock.items);
+assert.strictEqual(groups.length, 11);
+assert.deepStrictEqual(
+  groups.find(function (group) { return group.design === "Board Game Components"; }).variants.map(function (variant) { return variant.item.colour; }),
+  ["White", "Black"]
+);
+assert.strictEqual(itemOf("Game Night", "Black").image, "images/game-night--black.webp");
+assert.ok(!fs.existsSync(path.join(root, "images/game-night.jpg")));
+assert.ok(!fs.existsSync(path.join(root, "images/wingin-it.jpg")));
 assert.strictEqual(Shop.itemLabel(itemOf("Before You Ask", "Blue")), "Before You Ask — Blue");
 
-const wingin = itemOf("Wingin' It", null);
+const wingin = itemOf("Wingin' It", "Black");
 const fields = {
   name: "Meera Shah",
   size: "L",
@@ -91,7 +101,7 @@ const vars = Shop.orderVars(
   wingin,
   Shop.formatInr(result.total)
 );
-const message = Shop.fillTemplate(copy.whatsappTemplate, vars);
+const message = Shop.applyTemplate(copy.whatsappTemplate, vars);
 const url = Shop.buildWhatsAppUrl(copy.whatsappNumber, message);
 const decoded = decodeURIComponent(url.slice(url.indexOf("?text=") + 6));
 
@@ -102,7 +112,20 @@ assert.ok(url.includes("%26"), "ampersand should be percent-encoded");
 assert.ok(url.includes("Wingin'%20It") || url.includes("Wingin%27%20It") || decoded.includes("Wingin' It"));
 assert.ok(!message.includes("{name}"));
 assert.ok(message.includes("Design: Wingin' It"));
-assert.ok(message.includes("Colour: —"));
+assert.ok(message.includes("Colour: Black"));
+const plain = itemOf("The Boardgamer", null);
+const plainResult = Shop.validateOrder(Object.assign({}, fields, { size: "L", quantity: "1", note: "Gift." }), plain, {
+  priceInr: 899,
+  sources: copy.hearAboutOptions,
+});
+assert.strictEqual(plainResult.ok, true, JSON.stringify(plainResult.errors));
+const plainMessage = Shop.applyTemplate(copy.whatsappTemplate, Shop.orderVars(
+  Object.assign({}, fields, { size: "L", quantity: 1, note: "Gift." }),
+  plain,
+  Shop.formatInr(plainResult.total)
+));
+assert.ok(!plainMessage.includes("Colour"), plainMessage);
+assert.strictEqual(plainResult.total, 899);
 assert.ok(message.includes("Size: L"));
 assert.ok(message.includes("Quantity: 2"));
 assert.ok(message.includes("Total: Rs 1,798"));

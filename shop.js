@@ -80,6 +80,33 @@
     );
   }
 
+  function applyTemplate(template, vars) {
+    var lines = String(template == null ? "" : template).split("\n");
+    var kept = [];
+    lines.forEach(function (line) {
+      if (line.indexOf("{colour}") !== -1 && !(vars && vars.colour)) return;
+      kept.push(fillTemplate(line, vars));
+    });
+    return kept.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+  }
+
+  function groupByDesign(items) {
+    var groups = [];
+    (items || []).forEach(function (item, index) {
+      if (!isForSale(item)) return;
+      var group = null;
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i].design === item.design) group = groups[i];
+      }
+      if (!group) {
+        group = { design: item.design, variants: [] };
+        groups.push(group);
+      }
+      group.variants.push({ item: item, index: index });
+    });
+    return groups;
+  }
+
   function buildWhatsAppUrl(number, text) {
     var digits = String(number == null ? "" : number).replace(/[^\d]/g, "");
     return "https://wa.me/" + digits + "?text=" + encodeURIComponent(String(text == null ? "" : text));
@@ -91,7 +118,7 @@
     return {
       name: String((fields && fields.name) || "").trim(),
       design: item && item.design ? item.design : "",
-      colour: item && item.colour ? item.colour : "—",
+      colour: item && item.colour ? String(item.colour).trim() : "",
       size: String((fields && fields.size) || "").trim(),
       quantity: quantity,
       total: totalText,
@@ -158,6 +185,8 @@
     formatInr: formatInr,
     parseQuantity: parseQuantity,
     fillTemplate: fillTemplate,
+    applyTemplate: applyTemplate,
+    groupByDesign: groupByDesign,
     buildWhatsAppUrl: buildWhatsAppUrl,
     orderVars: orderVars,
     validateOrder: validateOrder,
