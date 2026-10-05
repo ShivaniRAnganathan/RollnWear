@@ -94,8 +94,7 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 
 
-Fonts in this folder, all under the SIL Open Font License above:
-- Lilita One (headlines)
-- Poppins (body)
-- DM Serif Display (about heading)
-Latin subset, converted to WOFF2 for the website.
+Fonts used on the site, both under the SIL Open Font License:
+- Fraunces (headlines)
+- Outfit (text)
+Latin subsets, WOFF2.
