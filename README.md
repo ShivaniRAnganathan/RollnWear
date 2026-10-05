@@ -20,7 +20,7 @@ Edit **`stock.json`** only. Each tee is one object: `design`, `colour` (`null` i
 
 Change the numbers. Customers never see the counts. A size set to `0` disappears. If every size is `0`, that tee comes off the page. When the numbers for one design and colour add up to `lastFewAt` or less (3), the card says **Last few**.
 
-Colours of the same design share one card. The swatches switch the photo and the sizes. A photographed colour is shown first. Leave `colour` as `null` when it is not confirmed: the WhatsApp message then omits the colour line. Game Night, the black Power to the Meeple, and the black Wingin' It are filled in. The other unset colours stay unset until you confirm them.
+Colours of the same design share one card. The swatches switch the photo and the sizes. The colour named in the photo file is shown first. Another colour can share that photo when it has none of its own. Leave `colour` as `null` when it is not confirmed: the WhatsApp message then omits the colour line. Game Night, the black Power to the Meeple, and the black Wingin' It are filled in. The other unset colours stay unset until you confirm them.
 
 ```json
 "sizes": { "S": 4, "M": 0, "L": 2 }
@@ -50,7 +50,7 @@ The phone number is `whatsappNumber` at the top of `content.js`. Digits only, co
 
 ## Swap a photo
 
-See [`images/README.md`](images/README.md). Replace a file in `images/` or add one, then point that tee's `image` field in `stock.json` at it. `null` shows a tee silhouette in that colour, the design name, and “Photo coming soon”. It does not invent a print.
+See [`images/README.md`](images/README.md). Replace a file in `images/` or add one, then point that tee's `image` field in `stock.json` at it. `null` shows a tee silhouette in that colour, the design name, and “Photo coming soon”. It does not invent a print. If a colour has no photo, point `image` at the closest photo of that same design. The swatch name stays the colour in stock.
 
 ## Link previews on Instagram and WhatsApp
 

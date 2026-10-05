@@ -49,10 +49,18 @@
     return null;
   }
 
+  function colourMatchesImage(item) {
+    if (!item || !item.image || !item.colour) return false;
+    return String(item.image).toLowerCase().indexOf(String(item.colour).toLowerCase()) !== -1;
+  }
+
   function preferredIndex(group) {
     var picked = null;
     group.variants.forEach(function (variant) {
-      if (!picked && variant.item.image) picked = variant.index;
+      if (picked == null && colourMatchesImage(variant.item)) picked = variant.index;
+    });
+    group.variants.forEach(function (variant) {
+      if (picked == null && variant.item.image) picked = variant.index;
     });
     return picked == null ? group.variants[0].index : picked;
   }
@@ -146,6 +154,9 @@
     container.innerHTML = "";
     var named = group.variants.filter(function (variant) { return variant.item.colour; });
     named.sort(function (a, b) {
+      var am = colourMatchesImage(a.item) ? 0 : 1;
+      var bm = colourMatchesImage(b.item) ? 0 : 1;
+      if (am !== bm) return am - bm;
       var ap = a.item.image ? 0 : 1;
       var bp = b.item.image ? 0 : 1;
       if (ap !== bp) return ap - bp;
